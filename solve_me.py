@@ -116,12 +116,18 @@ $ python tasks.py runserver # Starts the tasks management server"""
             print(f"{index+1}. {task}")
 
     def render_pending_tasks(self):
-        # Complete this method to return all incomplete tasks as HTML
-        return "<h1> Show Incomplete Tasks Here </h1>"
+        list_items = list(map(
+            lambda priority: f"<li>{self.current_items[priority]} [{priority}]</li>",
+            self.current_items
+        ))
+        return f"<ol>{''.join(list_items)}</ol>"
 
     def render_completed_tasks(self):
-        # Complete this method to return all completed tasks as HTML
-        return "<h1> Show Completed Tasks Here </h1>"
+        list_items = list(map(
+            lambda item: f"<li>{item}</li>",
+            self.completed_items
+        ))
+        return f"<ol>{''.join(list_items)}</ol>"
 
 
 class TasksServer(TasksCommand, BaseHTTPRequestHandler):
