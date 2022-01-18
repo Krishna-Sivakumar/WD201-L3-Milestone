@@ -77,7 +77,19 @@ $ python tasks.py runserver # Starts the tasks management server"""
         )
 
     def add(self, args):
-        pass  # Use your existing implementation
+        priority, text = int(args[0]), args[1]
+        if not priority in self.current_items:
+            print(f"Added task: \"{text}\" with priority {priority}")
+            self.current_items[priority] = text
+        else:
+            print(f"Added task: \"{text}\" with priority {priority}")
+            while priority in self.current_items:
+                temp = self.current_items[priority]
+                self.current_items[priority] = text
+                text = temp
+                priority += 1
+            self.current_items[priority] = text
+        self.write_current()
 
     def done(self, args):
         priority = int(args[0])

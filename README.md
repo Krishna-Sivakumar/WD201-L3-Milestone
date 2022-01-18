@@ -1,5 +1,11 @@
 In the last milestone, we created a command line application to manage our tasks, although this is really good, it's not very user friendly and it's hard to quickly take a look at our pending tasks, to solve these issues, we will create a tiny server that can render our tasks in a nice way.
 
+## Final Results
+
+**Application passes all test cases**
+
+![all tests passing](completed.png)
+
 ## Usage
 
 ### 1. Help
