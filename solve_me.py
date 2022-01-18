@@ -80,16 +80,40 @@ $ python tasks.py runserver # Starts the tasks management server"""
         pass  # Use your existing implementation
 
     def done(self, args):
-        pass  # Use your existing implementation
+        priority = int(args[0])
+        if priority in self.current_items:
+            item = self.current_items[priority]
+            del self.current_items[priority]
+
+            self.completed_items.append(item)
+            print("Marked item as done.")
+            self.write_current()
+            self.write_completed()
+        else:
+            print(
+                f"Error: no incomplete item with priority {priority} exists.")
 
     def delete(self, args):
-        pass  # Use your existing implementation
+        priority = int(args[0])
+        if priority in self.current_items:
+            del self.current_items[priority]
+            print(f"Deleted item with priority {priority}")
+        else:
+            print(
+                f"Error: item with priority {priority} does not exist. Nothing deleted.")
+        self.write_current()
 
     def ls(self):
-        pass  # Use your existing implementation
+        for index, priority in enumerate(sorted(self.current_items.keys())):
+            print(f"{index+1}. {self.current_items[priority]} [{priority}]")
 
     def report(self):
-        pass  # Use your existing implementation
+        print(f"Pending : {len(self.current_items.keys())}")
+        for index, priority in enumerate(sorted(self.current_items.keys())):
+            print(f"{index+1}. {self.current_items[priority]} [{priority}]")
+        print(f"\nCompleted : {len(self.completed_items)}")
+        for index, task in enumerate(self.completed_items):
+            print(f"{index+1}. {task}")
 
     def render_pending_tasks(self):
         # Complete this method to return all incomplete tasks as HTML
